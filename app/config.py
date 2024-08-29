@@ -17,6 +17,6 @@ SQLALCHEMY_DATABASE_URL = get_connection_string()
 SQLALCHEMY_DATABASE_URL_ASYNC = get_connection_string(True)
 
 #JWT 
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
+JWT_SECRET = os.getenv("JWT_SECRET")
 ALGORITHM = os.getenv("JWT_ALGORITHM")
 ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv(key="ACCESS_TOKEN_EXPIRE_MINUTES")

@@ -8,7 +8,9 @@ cffi==1.15.1
 click==8.1.3
 cryptography==40.0.1
 dill==0.3.6
+dnspython==2.6.1
 ecdsa==0.18.0
+email_validator==2.2.0
 fastapi==0.112.1
 greenlet==2.0.2
 h11==0.14.0
