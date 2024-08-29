@@ -1,12 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from models.user import UserCreate, UserOut, UserLogin, Token
-from shared.db import get_db_context
+from models.user import UserCreate, UserLogin, Token
 from utils.password import hash_password, verify_password
 from utils.accesstoken import create_access_token
 from schemas.user import User
-def new_user(user: UserCreate, db: Session):
+def create_user(user: UserCreate, db: Session):
     db_user_email = db.scalars(select(User).filter_by(email=user.email)).first()
     if db_user_email is not None:
         raise HTTPException(status_code=400, detail="Email already registered")
@@ -27,6 +26,7 @@ def new_user(user: UserCreate, db: Session):
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
+    return new_user
 
 def verify_user(user: UserLogin, db: Session):
     db_user = db.query(User).filter(User.username == user.username).first()
