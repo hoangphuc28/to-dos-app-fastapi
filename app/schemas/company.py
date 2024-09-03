@@ -12,4 +12,3 @@ class Company(Base, BaseEntity):
     mode = Column(Enum(CompanyMode), nullable=False, default=CompanyMode.ACTIVE)
     rating = Column(Float, nullable=False)
     users = relationship("User", back_populates="company")
-    

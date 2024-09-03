@@ -32,10 +32,10 @@ def verify_user(user: UserLogin, db: Session):
     db_user = db.query(User).filter(User.username == user.username).first()
     if not db_user:
         raise HTTPException(status_code=400, detail="Invalid credentials")
-    
+
     if not verify_password(user.password, db_user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid credentials")
-    
+
     access_token = create_access_token(data={"sub": db_user.username})
     token = Token(access_token=access_token, token_type="bearer")
     return token

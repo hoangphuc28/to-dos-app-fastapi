@@ -9,7 +9,6 @@ def get_db_context():
         yield db
     finally:
         db.close()
-    
 async def get_async_db_context():
     async with AsyncSessionLocal() as async_db:
         yield async_db
