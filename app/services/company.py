@@ -38,10 +38,19 @@ def get_companies(db: Session, page: int = 1, limit: int = 10):
     return response
 
 def create_company(db: Session, company: CompanyCreate):
-    db_company = Company(**company.dict())
+    # Check if the company name already exists
+    stmt = select(Company).filter_by(name=company.name)
+    existing_company = db.execute(stmt).scalar_one_or_none()
+
+    if existing_company:
+        raise HTTPException(status_code=400, detail="Company name is already taken.")
+
+    # Create a new company
+    db_company = Company(**company.model_dump())
     db.add(db_company)
     db.commit()
     db.refresh(db_company)
+    
     return db_company
 
 def update_company(db: Session, company_id: UUID, company_update: CompanyUpdate):

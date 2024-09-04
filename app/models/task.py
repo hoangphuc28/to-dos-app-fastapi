@@ -11,10 +11,10 @@ class TaskCreate(BaseModel):
     user_id: UUID
 
 class TaskUpdate(BaseModel):
-    summary: str = None
-    description: str = None
-    status: TaskStatus = None
-    priority: TaskPriority = None
+    summary: str
+    description: str
+    status: TaskStatus
+    priority: TaskPriority
 
 class TaskView(BaseModel):
     id: UUID

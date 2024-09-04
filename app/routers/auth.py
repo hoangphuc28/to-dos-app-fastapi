@@ -12,5 +12,4 @@ def signup(user: UserCreate,  db: Session = Depends(get_db_context)):
 
 @router.post("/signin/", response_model=Token)
 def signin(user: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db_context)):
-    
     return verify_user(user, db)

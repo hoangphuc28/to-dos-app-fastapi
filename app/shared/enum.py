@@ -12,6 +12,6 @@ class TaskStatus(enum.Enum):
 
 
 class TaskPriority(enum.Enum):
-    HIGHEST = "HIGHEST"
+    HIGH = "HIGH"
     MEDIUM = "MEDIUM"
     LOW = "LOW"
