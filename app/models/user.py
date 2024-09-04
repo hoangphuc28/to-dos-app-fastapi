@@ -1,5 +1,8 @@
+from typing import List
 from pydantic import BaseModel, EmailStr
 from uuid import UUID
+
+from models.pagination import Pagination
 class UserCreate(BaseModel):
     email: EmailStr
     username: str
@@ -17,12 +20,9 @@ class UserOut(BaseModel):
     is_active: bool
     is_admin: bool
 
-
-class UserLogin(BaseModel):
-    username: str
-    password: str
-
-
 class Token(BaseModel):
     access_token: str
     token_type: str
+class UsersResponse(BaseModel, Pagination):
+    items: List[UserOut]
+    

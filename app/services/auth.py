@@ -1,10 +1,12 @@
 from fastapi import HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
-from models.user import UserCreate, UserLogin, Token
+from models.user import UserCreate, Token
 from utils.password import hash_password, verify_password
 from utils.accesstoken import create_access_token
 from schemas.user import User
+from fastapi.security import OAuth2PasswordRequestForm
+
 def create_user(user: UserCreate, db: Session):
     db_user_email = db.scalars(select(User).filter_by(email=user.email)).first()
     if db_user_email is not None:
@@ -28,7 +30,7 @@ def create_user(user: UserCreate, db: Session):
     db.refresh(new_user)
     return new_user
 
-def verify_user(user: UserLogin, db: Session):
+def verify_user(user: OAuth2PasswordRequestForm, db: Session):
     db_user = db.query(User).filter(User.username == user.username).first()
     if not db_user:
         raise HTTPException(status_code=400, detail="Invalid credentials")
@@ -36,6 +38,6 @@ def verify_user(user: UserLogin, db: Session):
     if not verify_password(user.password, db_user.hashed_password):
         raise HTTPException(status_code=400, detail="Invalid credentials")
 
-    access_token = create_access_token(data={"sub": db_user.username})
+    access_token = create_access_token(data={"username": db_user.username, "id": str(db_user.id)})
     token = Token(access_token=access_token, token_type="bearer")
     return token

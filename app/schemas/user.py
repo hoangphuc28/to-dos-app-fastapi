@@ -13,6 +13,7 @@ class User(Base, BaseEntity):
     hashed_password = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
     is_admin = Column(Boolean, default=False)
+    tasks = relationship("Task", back_populates="user")
 
     company_id = Column(Uuid, ForeignKey("companies.id"), nullable=False)
     company = relationship("Company")

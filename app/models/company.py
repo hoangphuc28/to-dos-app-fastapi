@@ -1,8 +1,9 @@
-from sqlalchemy import Uuid
-from pydantic import BaseModel, ConfigDict, Field
-from typing import Optional
+from pydantic import BaseModel, ConfigDict
+from typing import List, Optional
+from models.pagination import Pagination
 from shared.enum import CompanyMode
 from uuid import UUID
+
 class CompanyCreate(BaseModel):
     name: str
     description: str
@@ -12,13 +13,15 @@ class CompanyCreate(BaseModel):
 class CompanyUpdate(BaseModel):
     name: Optional[str]
     description: Optional[str]
-    mode: Optional[CompanyMode]
     rating: Optional[float]
 
 class CompanyView(BaseModel):
     id: UUID
     name: str
     description: str
-    mode: CompanyMode
+    # mode: CompanyMode
     rating: float
     model_config = ConfigDict(from_attributes=True)
+
+class CompaniesResponse(BaseModel, Pagination):
+    items: List[CompanyView]

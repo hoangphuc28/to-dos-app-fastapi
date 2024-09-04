@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from config import SQLALCHEMY_DATABASE_URL, SQLALCHEMY_DATABASE_URL_ASYNC
+
 def get_db_context():
     try:
         db = SessionLocal()
