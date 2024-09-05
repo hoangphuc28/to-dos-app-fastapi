@@ -62,7 +62,7 @@ Make sure the following software is installed on your system:
    Apply database migrations using Alembic to set up your database schema:
 
    ```bash
-   alembic upgrade head
+    cd app && alembic upgrade head
    ```
 
    This will create the `users` and `tasks` tables as per the migrations.
