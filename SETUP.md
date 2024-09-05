@@ -77,3 +77,20 @@ cd app && uvicorn main:app --reload
 
 By default, the app will be available at `http://127.0.0.1:8000`.
 
+
+# API Usage Guide
+
+Some of the APIs are protected, meaning you need to be authorized before using them. Follow this guide to understand how to use the APIs effectively.
+
+## Authorization for Protected APIs
+1. 
+    **Sign In to Authorize:**
+   - Before accessing protected APIs, you need to sign in. Click the **"Authorize"** button at the top right of the API documentation page.
+    ![alt text](image.png)
+
+    **Using the Lock Icon for Protected APIs:**
+   - Protected APIs have a **lock icon** beside them.
+
+2. **Clicking the Authorize button will open the authorization form with the required fields for login. On a successful response, tokens will be saved and sent to subsequent request in the headers.**
+
+    ![alt text](image-1.png)
