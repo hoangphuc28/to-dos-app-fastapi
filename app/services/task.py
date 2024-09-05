@@ -28,7 +28,7 @@ def get_tasks(db: Session, page: int = 1, limit: int = 10) -> TasksResponse:
 
     # Create the response
     response = TasksResponse(
-        items=[TaskView.from_orm(task) for task in tasks],
+        items=tasks,
         limit=limit,
         currentPage=page,
         totalPages=total_pages,
@@ -48,10 +48,10 @@ def get_tasks(db: Session, page: int = 1, limit: int = 10, user_id: UUID = None)
         page = 1
     skip = (page - 1) * limit
     
-    total_items = db.scalar(select(func.count(Task.id)))
+    total_items = db.scalar(select(func.count(Task.id)).filter(Task.status == TaskStatus.INACTIVE, Task.user_id == user_id))
     total_pages = (total_items + limit - 1) // limit  # Ceiling division for total pages
     print(user_id)
-    stmt = select(Task).filter(Task.user_id == user_id).offset(skip).limit(limit)
+    stmt = select(Task).filter(Task.status != TaskStatus.INACTIVE, Task.user_id == user_id).offset(skip).limit(limit)
     items = db.scalars(stmt).all()
     # Create the response
     response = {

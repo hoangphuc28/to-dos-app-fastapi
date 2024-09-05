@@ -9,6 +9,8 @@ class CompanyMode(enum.Enum):
 class TaskStatus(enum.Enum):
     ACTIVE = "ACTIVE"
     INACTIVE = "INACTIVE"
+    PENDING = "PENDING",
+    COMPLETED = "COMPLETED"
 
 
 class TaskPriority(enum.Enum):

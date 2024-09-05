@@ -24,7 +24,7 @@ def upgrade() -> None:
         sa.Column('id', sa.Uuid, primary_key=True, nullable=False),
         sa.Column('summary', sa.String(255), nullable=False),
         sa.Column('description', sa.String(255), nullable=False),
-        sa.Column('status', sa.Enum('ACTIVE', 'COMPLETED', 'PENDING', name='taskstatus'), nullable=False, server_default='ACTIVE'),
+        sa.Column('status', sa.Enum('ACTIVE', 'COMPLETED', 'PENDING', 'INACTIVE', name='taskstatus'), nullable=False, server_default='ACTIVE'),
         sa.Column('priority', sa.Enum('LOW', 'MEDIUM', 'HIGH', name='taskpriority'), nullable=False, server_default='LOW'),
         sa.Column('user_id', sa.Uuid, sa.ForeignKey('users.id'), nullable=False),
         sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.func.now(), nullable=False),
